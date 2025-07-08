@@ -1,5 +1,5 @@
 const prisma = require('../../db');
-
+const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 const is_already_registered = require('../../helper/is_already_registered');
 
