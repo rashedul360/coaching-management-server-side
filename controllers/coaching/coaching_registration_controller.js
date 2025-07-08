@@ -24,6 +24,7 @@ const registration_coaching = async (req, res, next) => {
       levels,
       password,
     } = req.body || {};
+
     // =============================
     const coaching_center_id = shortid.generate();
     const coaching_center_details = await prisma.coaching_center.create({
@@ -45,7 +46,8 @@ const registration_coaching = async (req, res, next) => {
       center_email,
       center_phone_number
     );
-    if (!is_registered)
+
+    if (is_registered)
       return res.json({
         success: false,
         error: true,

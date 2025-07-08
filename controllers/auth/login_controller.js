@@ -9,7 +9,6 @@ const login_controller = async (req, res, next) => {
   try {
     const { phone, password } = req.body || {};
     let { user_info, is_registered } = await is_already_registered(null, phone);
-    console.log(is_registered);
     if (is_registered) {
       const is_correct_pass = bcrypt.compareSync(password, user_info?.password);
 

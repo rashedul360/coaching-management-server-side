@@ -7,6 +7,8 @@ const user_registration_router = require('./routes/registration/user_registratio
 const coaching_registration_router = require('./routes/coaching/coaching_registration_router');
 const security_router = require('./routes/security/security_routes');
 const logout_router = require('./routes/auth/logout');
+const branch_router = require('./routes/branches/branch_route');
+const batch_router = require('./routes/batch/batch_route');
 
 const app = express();
 const port = 4000;
@@ -26,6 +28,8 @@ app.use('/api/v1/', user_registration_router);
 app.use('/api/v1/', coaching_registration_router);
 app.use('/api/v1/', security_router);
 app.use('/api/v1/', logout_router);
+app.use('/api/v1/', branch_router);
+app.use('/api/v1/', batch_router);
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
 });

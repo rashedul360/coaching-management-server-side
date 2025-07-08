@@ -13,6 +13,7 @@ model User {
   role Role[]
   ac_type String @default("USER")
   createdAt DateTime @default(now())
+  branches Branch[]
 }
 
 model Role {
@@ -38,6 +39,7 @@ model Coaching_center{
   subdomain String
   createdAt DateTime @default(now())
   details_coaching_center Details_coaching_center[]
+
 }
 model Details_coaching_center {
   id Int @id @default(autoincrement())
@@ -50,6 +52,7 @@ model Details_coaching_center {
   details Coaching_center @relation(fields: [coaching_center_id],references: [coaching_center_id])
   subjects Coaching_center_subject[]
   levels Education_level[]
+  
 }
 model Coaching_center_subject{
   id Int @id @default(autoincrement())
@@ -73,6 +76,7 @@ model Branch{
   id Int @id @default(autoincrement())
   branch_id String @unique
   branch_name String
+  coaching_center_id String
   address String
   city String
   state String
@@ -80,14 +84,17 @@ model Branch{
   branch_phone_number String
   branch_email String
   createdAt DateTime @default(now())
+  linker User @relation(fields: [coaching_center_id], references: [user_id])
 }
 
 model Batch{
   id Int @id @default(autoincrement())
   batch_id String @unique
   batch_name String 
-  start_date DateTime
-  end_date DateTime
+  start_date String
+  coaching_center_id String
+  branch_id String
+  end_date String
   batch_type String
   batch_fee String
   available_seats String
@@ -98,6 +105,8 @@ model Batch_schedule{
   id Int @id @default(autoincrement())
   schedule_id String
   batch_id String
+  name_bn String
+  name_en String
   schedule Batch @relation(fields: [batch_id],references: [batch_id])
   createdAt DateTime @default(now())
 }
