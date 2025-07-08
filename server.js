@@ -1,27 +1,27 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const prisma = require('./db');
+const cookieParser = require('cookie-parser');
+const login_router = require('./routes/auth/login');
+const user_registration_router = require('./routes/registration/user_registration');
+const coaching_registration_router = require('./routes/coaching/coaching_registration_router');
 
 const app = express();
-const port = 3000;
-app.use(cors());
+const port = 4000;
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-
-app.get('/', async (req, res) => {
-  try {
-    const user = await prisma.user.create({
-      data: {
-        name: 'Alice',
-        email: 'alicesdfsdsadfdgsd@prisma.io',
-      },
-    });
-    return res.json(user);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
+app.use(cookieParser());
+// =================== routes
+app.use('/api/v1/', login_router);
+app.use('/api/v1/', user_registration_router);
+app.use('/api/v1/', coaching_registration_router);
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
 });
