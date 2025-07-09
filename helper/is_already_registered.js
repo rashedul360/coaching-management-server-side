@@ -18,7 +18,7 @@ const is_already_registered = async (email, phone) => {
     }
 
     return {
-      user_info: user || undefined,
+      user_info: user,
       is_registered: user?.user_id ? true : false,
     };
   } catch (err) {

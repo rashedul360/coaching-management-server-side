@@ -85,6 +85,8 @@ model Branch{
   branch_email String
   createdAt DateTime @default(now())
   linker User @relation(fields: [coaching_center_id], references: [user_id])
+  students Batch_student[]
+  revenue Revenue[]
 }
 
 model Batch{
@@ -100,15 +102,45 @@ model Batch{
   available_seats String
   createdAt DateTime @default(now())
   schedules Batch_schedule[]
+  students Batch_student[]
+  revenue Revenue[]
 }
 model Batch_schedule{
   id Int @id @default(autoincrement())
   schedule_id String
-  batch_id String
+  batch_id String 
   name_bn String
   name_en String
-  schedule Batch @relation(fields: [batch_id],references: [batch_id])
   createdAt DateTime @default(now())
+  schedule Batch @relation(fields: [batch_id],references: [batch_id])
+}
+model Batch_student{
+  id Int @id @default(autoincrement())
+  student_id String
+  name String
+  coaching_center_id String
+  branch_id String 
+  batch_id String
+  phone_number String
+  email String
+  createdAt DateTime @default(now())
+  batch_link Batch @relation(fields: [batch_id], references: [batch_id])
+  branch_link Branch @relation(fields: [branch_id],references: [branch_id])
+}
+model Revenue{
+  id Int @id @default(autoincrement())
+  revenue_id String @unique
+  student_id String
+  student_name String
+  coaching_center_id String
+  branch_id String 
+  batch_id String
+  phone_number String
+  amount String
+  payment_method String
+  createdAt DateTime @default(now())
+  link Branch @relation(fields: [branch_id], references: [branch_id])
+  linker Batch @relation(fields: [batch_id],references: [batch_id])
 }
 datasource db {
   provider = "mysql"

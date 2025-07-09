@@ -42,7 +42,7 @@ const registration_coaching = async (req, res, next) => {
         subdomain,
       },
     });
-    const { user_info, is_registered } = is_already_registered(
+    const { user_info, is_registered } = await is_already_registered(
       center_email,
       center_phone_number
     );

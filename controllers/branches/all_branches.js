@@ -3,11 +3,14 @@ const jwt = require('jsonwebtoken');
 const all_branches_controller = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
-    console.log(token);
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const branches = await prisma.branch.findMany({
       where: {
         coaching_center_id: decoded?.user_info?.user_id,
+      },
+      include: {
+        students: true,
+        revenue: true,
       },
     });
     return res.json({

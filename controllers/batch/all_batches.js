@@ -11,6 +11,7 @@ const all_batches_controller = async (req, res, next) => {
       },
       include: {
         schedules: true,
+        students: true,
       },
     });
     return res.json({
