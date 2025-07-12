@@ -143,6 +143,6 @@ model Revenue{
   linker Batch @relation(fields: [batch_id],references: [batch_id])
 }
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
